@@ -11,7 +11,7 @@ from PIL import Image, ImageFilter
 import cv2
 import numpy as np
 import matplotlib.cm as cm
-global nheight
+
 def imageprepare(img):
     """
     This function returns the pixel values.
@@ -26,6 +26,7 @@ def imageprepare(img):
     newImage = Image.new('L', (28, 28), (255)) #creates white canvas of 28x28 pixels
     
     if width > height: #check which dimension is bigger
+        global nheight
         #Width is bigger. Width becomes 20 pixels.
         nheight = int(round((20.0/width*height),0)) #resize height according to ratio width
         if (nheigth == 0): #rare case but minimum is 1 pixel
