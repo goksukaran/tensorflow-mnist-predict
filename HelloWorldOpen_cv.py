@@ -69,8 +69,8 @@ def GuessNumbers(thresh,contours):
     plt.show()
 def main():
     
-    #im=captureandsave()
-    im= cv2.imread('./Images/capture.png',0)
+    im=captureandsave()
+  
     thresh,contours=Image_threshold(im)
     resived_contours=ContourRevision(contours)
     GuessNumbers(thresh,resived_contours)

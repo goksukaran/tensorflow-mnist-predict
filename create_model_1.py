@@ -29,7 +29,8 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 #import data
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
-
+#parameters
+logs_path = '/tmp/tensorflow_logs/model1'
 # Create the model
 x = tf.placeholder(tf.float32, [None, 784])
 W = tf.Variable(tf.zeros([784, 10]))
@@ -45,6 +46,8 @@ init_op = tf.initialize_all_variables()
 saver = tf.train.Saver()
 
 
+
+
 # Train the model and save the model to disk as a model.ckpt file
 # file is stored in the same directory as this python script is started
 """
@@ -54,10 +57,12 @@ https://www.tensorflow.org/versions/master/how_tos/variables/index.html
 """
 with tf.Session() as sess:
     sess.run(init_op)
+    # op to write logs to Tensorboard
+    summary_writer = tf.summary.FileWriter(logs_path, graph=tf.get_default_graph())
     for i in range(1000):
         batch_xs, batch_ys = mnist.train.next_batch(100)
         sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
         
-    save_path = saver.save(sess, "model.ckpt")
+    save_path = saver.save(sess, "./model.ckpt")
     print ("Model saved in file: ", save_path)
 
